@@ -1,0 +1,26 @@
+<script>
+  const apiKey = 'YOUR_ALPHA_VANTAGE_API_KEY';
+  
+  // ฟังก์ชันดึงข้อมูลราคาหุ้นแบบเรียลไทม์
+  function fetchStockData(symbol, elementId) {
+    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=demo`;
+    
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const timeSeries = data['Time Series (1min)'];
+        const latestTime = Object.keys(timeSeries)[0];
+        const latestData = timeSeries[latestTime];
+        const price = latestData['1. open'];
+  
+        // อัปเดตราคาหุ้นในหน้าเว็บ
+        document.getElementById(elementId).innerText = `$${parseFloat(price).toFixed(2)}`;
+      })
+      .catch(error => console.error('Error fetching stock data:', error));
+  }
+  
+  // ดึงข้อมูลหุ้น AAPL และ BAC
+  fetchStockData('AAPL', 'aapl-price');
+  fetchStockData('BAC', 'bac-price');
+  </script>
+  

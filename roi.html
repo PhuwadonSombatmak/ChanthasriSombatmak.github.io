@@ -1,0 +1,17 @@
+<script>
+  // ฟังก์ชันคำนวณผลตอบแทน (ROI)
+  function calculateROI(initialPrice, currentPrice) {
+    const roi = ((currentPrice - initialPrice) / initialPrice) * 100;
+    return roi.toFixed(2); // คืนค่าเป็นเปอร์เซ็นต์ที่ปัดเศษ 2 ตำแหน่ง
+  }
+  
+  // ตัวอย่างการคำนวณ ROI สำหรับหุ้น Apple
+  const appleInitialPrice = 120.00;  // สมมติราคาซื้อ
+  fetchStockData('AAPL', 'aapl-price'); // ดึงข้อมูลล่าสุด
+  
+  // เมื่อข้อมูลหุ้นดึงมาแล้ว สามารถคำนวณ ROI
+  const appleCurrentPrice = parseFloat(document.getElementById('aapl-price').innerText.replace('$', ''));
+  const appleROI = calculateROI(appleInitialPrice, appleCurrentPrice);
+  console.log('Apple ROI:', appleROI + '%');
+  </script>
+  
